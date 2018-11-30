@@ -23,3 +23,16 @@ export const SUB_VALUE = value => {
     value
   };
 };
+export const ADD_RESULT = (result, id) => {
+  return {
+    type: actionTypes.ADD_RESULT,
+    result,
+    id
+  };
+};
+export const REMOVE_RESULT = id => {
+  return {
+    type: actionTypes.REMOVE_RESULT,
+    id
+  };
+};

@@ -4,13 +4,20 @@ import {
   INC_VALUE,
   ADD_VALUE,
   DEC_VALUE,
-  SUB_VALUE
+  SUB_VALUE,
+  ADD_RESULT,
+  REMOVE_RESULT
 } from "../../store/actions";
 import CounterControl from "../../components/CounterControl/CounterControl";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
 
 class Counter extends Component {
   render() {
+    const markup = this.props.results.map((val, i) => (
+      <li key={i} onClick={() => this.props.removeRes(val.id)}>
+        <p>{val.result}</p>
+      </li>
+    ));
     return (
       <div>
         <CounterOutput value={this.props.count} />
@@ -21,13 +28,19 @@ class Counter extends Component {
           label="Subtract 5"
           clicked={() => this.props.remove(5)}
         />
+        <button onClick={() => this.props.addRes(this.props.count)}>
+          STORE RESULT
+        </button>
+
+        <ul>{markup}</ul>
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    count: state.count
+    count: state.count,
+    results: state.results
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -35,7 +48,9 @@ const mapDispatchToProps = dispatch => {
     add: val => dispatch(ADD_VALUE(val)),
     remove: val => dispatch(SUB_VALUE(val)),
     increment: () => dispatch(INC_VALUE()),
-    decrement: () => dispatch(DEC_VALUE())
+    decrement: () => dispatch(DEC_VALUE()),
+    addRes: val => dispatch(ADD_RESULT(val)),
+    removeRes: id => dispatch(REMOVE_RESULT(id))
   };
 };
 
