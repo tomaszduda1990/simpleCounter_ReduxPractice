@@ -1,10 +1,12 @@
 import * as actionTypes from "./actionTypes";
-const initialState = {
-  count: 0,
+const initialStateCounter = {
+  count: 0
+};
+const initialStateResults = {
   results: []
 };
 
-const reducer = (state = initialState, action) => {
+const counterReducer = (state = initialStateCounter, action) => {
   switch (action.type) {
     case actionTypes.INC_VALUE:
       return {
@@ -26,6 +28,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         count: state.count - action.value
       };
+    default:
+      return state;
+  }
+};
+const resultsReducer = (state = initialStateResults, action) => {
+  switch (action.type) {
     case actionTypes.ADD_RESULT:
       return {
         ...state,
@@ -41,4 +49,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export { counterReducer, resultsReducer };
