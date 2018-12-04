@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import * as utilityFunc from "./utility";
 const initialStateCounter = {
   count: 0
 };
@@ -9,25 +10,13 @@ const initialStateResults = {
 const counterReducer = (state = initialStateCounter, action) => {
   switch (action.type) {
     case actionTypes.INC_VALUE:
-      return {
-        ...state,
-        count: state.count + 1
-      };
+      return utilityFunc.increment(state, action);
     case actionTypes.ADD_VALUE:
-      return {
-        ...state,
-        count: state.count + action.value
-      };
+      return utilityFunc.add(state, action);
     case actionTypes.DEC_VALUE:
-      return {
-        ...state,
-        count: state.count - 1
-      };
+      return utilityFunc.decrement(state, action);
     case actionTypes.SUB_VALUE:
-      return {
-        ...state,
-        count: state.count - action.value
-      };
+      return utilityFunc.remove(state, action);
     default:
       return state;
   }
@@ -35,15 +24,9 @@ const counterReducer = (state = initialStateCounter, action) => {
 const resultsReducer = (state = initialStateResults, action) => {
   switch (action.type) {
     case actionTypes.ADD_RESULT:
-      return {
-        ...state,
-        results: state.results.concat({ result: action.result, id: new Date() })
-      };
+      return utilityFunc.addResult(state, action);
     case actionTypes.REMOVE_RESULT:
-      return {
-        ...state,
-        results: state.results.filter(item => item.id !== action.id)
-      };
+      return utilityFunc.removeResult(state, action);
     default:
       return state;
   }
